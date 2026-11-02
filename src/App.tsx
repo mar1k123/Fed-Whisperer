@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useMemo, useState } from 'react';
 import { runFullSimulation, FraudPattern } from './engine/fraudEngine';
 import { NetworkExplorerView } from './components/NetworkExplorerView';

@@ -32,6 +32,9 @@ async function startServer() {
   const app = express();
   app.use(express.json({ limit: '2mb' }));
 
+  // Serve README SVG diagrams and visual documentation assets
+  app.use('/docs/assets', express.static(path.join(__dirname, 'docs/assets')));
+
   // Endpoint to read the actual Python project files from disk
   app.get('/api/project-files', (_req, res) => {
     try {

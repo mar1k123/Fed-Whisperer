@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 250" width="100%" height="100%">
+  <rect width="1200" height="250" rx="14" fill="#0f172a" stroke="#1e293b" stroke-width="2" />
+
+  <text x="32" y="38" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="800">
+    Strict Chronological Split &amp; Leak-Free Graph Feature Extraction (Zero Future Edge Leakage)
+  </text>
+  <text x="32" y="60" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">
+    For any split boundary t_cutoff, PageRank, degree, shared-device cliques, and GNN message passing only access edges with timestamp &lt;= t_cutoff.
+  </text>
+
+  <!-- Timeline Bar -->
+  <g transform="translate(32, 84)">
+    <!-- Train 70% -->
+    <rect x="0" y="0" width="640" height="64" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="20" y="26" fill="#38bdf8" font-family="ui-monospace, monospace" font-size="13" font-weight="700">
+      TRAIN WINDOW [0% – 70%] · Days 1–21
+    </text>
+    <text x="20" y="48" fill="#cbd5e1" font-family="ui-monospace, monospace" font-size="11">
+      Fit XGBoost (scale_pos_weight) + GraphSAGE &amp; GAT (Focal Loss γ=2.0, α=0.85) on t &lt;= t_train
+    </text>
+
+    <!-- Validation 15% -->
+    <rect x="652" y="0" width="230" height="64" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5" />
+    <text x="668" y="26" fill="#fbbf24" font-family="ui-monospace, monospace" font-size="13" font-weight="700">
+      VAL (70% – 85%]
+    </text>
+    <text x="668" y="48" fill="#cbd5e1" font-family="ui-monospace, monospace" font-size="11">
+      Calibrate P&ge;80% threshold
+    </text>
+
+    <!-- Test 15% -->
+    <rect x="894" y="0" width="242" height="64" rx="8" fill="#1e293b" stroke="#fb7185" stroke-width="1.5" />
+    <text x="910" y="26" fill="#fb7185" font-family="ui-monospace, monospace" font-size="13" font-weight="700">
+      TEST (85% – 100%]
+    </text>
+    <text x="910" y="48" fill="#cbd5e1" font-family="ui-monospace, monospace" font-size="11">
+      Standard + Shifted Tactics
+    </text>
+  </g>
+
+  <!-- Invariant Proof Strip -->
+  <g transform="translate(32, 172)" font-family="ui-monospace, monospace" font-size="12">
+    <rect x="0" y="0" width="365" height="50" rx="8" fill="#090d16" stroke="#334155" />
+    <text x="16" y="22" fill="#4ade80" font-weight="700">✓ Invariant 1: Temporal Ordering</text>
+    <text x="16" y="40" fill="#94a3b8" font-size="11">max(t_train) &lt; min(t_val) &lt; min(t_test)</text>
+
+    <rect x="382" y="0" width="372" height="50" rx="8" fill="#090d16" stroke="#334155" />
+    <text x="398" y="22" fill="#4ade80" font-weight="700">✓ Invariant 2: Future Tamper Proof</text>
+    <text x="398" y="40" fill="#94a3b8" font-size="11">Mutating t &gt; t_train yields ΔX_train = 0.0</text>
+
+    <rect x="771" y="0" width="365" height="50" rx="8" fill="#090d16" stroke="#334155" />
+    <text x="787" y="22" fill="#4ade80" font-weight="700">✓ Invariant 3: Dual Explainability</text>
+    <text x="787" y="40" fill="#94a3b8" font-size="11">TreeSHAP Waterfall + GNNExplainer 2-Hop</text>
+  </g>
+</svg>

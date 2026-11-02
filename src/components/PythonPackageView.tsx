@@ -3,7 +3,7 @@ import { Copy, Check, Download } from 'lucide-react';
 
 const FILE_DESCRIPTIONS: Record<string, string> = {
   'README.md':
-    'Full project documentation: why synthetic data is used, what that implies, how to plug in real data, and zero-invented-numbers reproduction guide.',
+    'Illustrated documentation with SVG banners, UI workstation tour, PC installation/download guide, synthetic data analysis, and real-data adapter.',
   'configs/config.yaml':
     'Configurable seed, accounts/devices/merchants counts, fraud rate (0.5%–2.0%), pattern weights, temporal splits, and XGBoost/GraphSAGE/GAT hyperparameters.',
   'requirements.txt':
@@ -39,6 +39,7 @@ const FILE_DESCRIPTIONS: Record<string, string> = {
 export const PythonPackageView: React.FC = () => {
   const [files, setFiles] = useState<Record<string, string>>({});
   const [selectedFile, setSelectedFile] = useState<string>('README.md');
+  const [readmeMode, setReadmeMode] = useState<'visual' | 'raw'>('visual');
   const [copied, setCopied] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -89,12 +90,43 @@ export const PythonPackageView: React.FC = () => {
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
           <p className="text-xs font-medium text-slate-500">
-            04. Full Python 3.10+ Repository Source Tree &amp; Documentation
+            04. Full Python 3.10+ Repository Source Tree &amp; Illustrated Documentation
           </p>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 mt-0.5">
-            Project Files (src/fraud_ring_finder/, configs/, tests/, app.py, README.md)
+            Project Files &amp; Visual README (src/fraud_ring_finder/, configs/, tests/, app.py)
           </h1>
         </div>
+
+        {selectedFile === 'README.md' && (
+          <div
+            className="flex items-center gap-1 p-1 bg-slate-100 border border-slate-200 rounded-lg shrink-0"
+            role="group"
+            aria-label="README display mode"
+          >
+            <button
+              type="button"
+              onClick={() => setReadmeMode('visual')}
+              className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 ${
+                readmeMode === 'visual'
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Illustrated README View
+            </button>
+            <button
+              type="button"
+              onClick={() => setReadmeMode('raw')}
+              className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 ${
+                readmeMode === 'raw'
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Raw Markdown Source
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -122,7 +154,7 @@ export const PythonPackageView: React.FC = () => {
           })}
         </div>
 
-        {/* Right 8 cols: Code Viewer */}
+        {/* Right 8 cols: Viewer */}
         <div className="lg:col-span-8 bg-white border border-slate-200 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between gap-4 px-5 py-3.5 bg-slate-50 border-b border-slate-200">
             <div>
@@ -156,9 +188,100 @@ export const PythonPackageView: React.FC = () => {
             </div>
           </div>
 
-          <pre className="p-5 text-xs font-mono text-slate-800 overflow-x-auto leading-relaxed max-h-[640px]">
-            <code>{loading ? 'Loading project source files...' : activeContent}</code>
-          </pre>
+          {selectedFile === 'README.md' && readmeMode === 'visual' ? (
+            <div className="p-6 space-y-8 text-sm text-slate-800 leading-relaxed max-h-[760px] overflow-y-auto">
+              {/* Hero Banner */}
+              <img
+                src="/docs/assets/hero-banner.svg"
+                alt="Fraud Ring Finder Hero Banner"
+                referrerPolicy="no-referrer"
+                className="w-full rounded-xl border border-slate-200"
+              />
+
+              {/* Section 1: Interface Preview */}
+              <div className="space-y-3">
+                <h2 className="text-lg font-bold text-slate-900">
+                  1. Interface &amp; PC Workstation Tour (Интерфейс программы)
+                </h2>
+                <p className="text-xs text-slate-600">
+                  The application launches as a desktop forensic workstation (`python desktop_app.py` or `npm run desktop`), a web workbench (`npm run dev`), or a Streamlit + PyVis app (`streamlit run app.py`).
+                </p>
+                <img
+                  src="/docs/assets/ui-workstation-preview.svg"
+                  alt="PC Desktop Workstation Interface Preview"
+                  referrerPolicy="no-referrer"
+                  className="w-full rounded-xl border border-slate-200"
+                />
+              </div>
+
+              {/* Section 2: Planted Topologies */}
+              <div className="space-y-3">
+                <h2 className="text-lg font-bold text-slate-900">
+                  2. Planted Fraud Ring Topologies &amp; Distribution Shift
+                </h2>
+                <p className="text-xs text-slate-600">
+                  Our seeded synthetic generator plants four structural fraud ring motifs (~0.5%–2.0% configurable fraud prevalence) and mutates them post-training to test distribution shift robustness:
+                </p>
+                <img
+                  src="/docs/assets/fraud-topologies-diagram.svg"
+                  alt="Four Planted Fraud Topologies Diagram"
+                  referrerPolicy="no-referrer"
+                  className="w-full rounded-xl border border-slate-200"
+                />
+              </div>
+
+              {/* Section 3: Temporal Split & Zero Leakage */}
+              <div className="space-y-3">
+                <h2 className="text-lg font-bold text-slate-900">
+                  3. Strict Chronological Split &amp; Zero-Leakage Guarantee
+                </h2>
+                <img
+                  src="/docs/assets/temporal-split-pipeline.svg"
+                  alt="Strict Temporal Split Pipeline"
+                  referrerPolicy="no-referrer"
+                  className="w-full rounded-xl border border-slate-200"
+                />
+              </div>
+
+              {/* Section 4: Installation & Download */}
+              <div className="space-y-3 border-t border-slate-200 pt-5">
+                <h2 className="text-lg font-bold text-slate-900">
+                  4. Download, Installation &amp; Quick Start (Загрузка и запуск на ПК)
+                </h2>
+                <pre className="p-4 bg-slate-950 text-slate-100 rounded-lg text-xs font-mono overflow-x-auto">
+                  <code>{`# 1. Clone repository & create Python 3.10+ virtual environment
+git clone https://github.com/your-org/fraud-ring-finder.git
+cd fraud-ring-finder
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+# 2A. Launch as a Native PC Desktop Window (PyWebView / Chromium App Mode)
+python desktop_app.py
+
+# 2B. Launch Interactive Streamlit + PyVis Dashboard
+streamlit run app.py
+
+# 2C. Run Reproducible CLI Evaluation Pipeline & Automated Tests
+python -m src.fraud_ring_finder.pipeline --config configs/config.yaml
+pytest tests/test_fraud_ring_finder.py -v`}</code>
+                </pre>
+              </div>
+
+              {/* Section 5: Why Synthetic & How to Plug in Real Data */}
+              <div className="space-y-3 border-t border-slate-200 pt-5">
+                <h2 className="text-lg font-bold text-slate-900">
+                  5. Why Synthetic Data Is Used, What It Implies &amp; How to Plug In Real Data
+                </h2>
+                <p className="text-xs text-slate-600">
+                  Real banking wire/P2P networks contain regulated PII (GLBA/GDPR/PCI-DSS) and lack oracle ground-truth labels for individual ring motifs. Using synthetic data enables controlled pattern-level ablation and post-training tactic shift stress testing, though real production graphs exhibit delayed chargeback labels (30–90 days) and benign commercial hubs that require threshold calibration. To plug in real data, load your `accounts.parquet`, `devices.parquet`, `merchants.parquet`, and `transactions.parquet` tables directly into `SyntheticTransactionNetwork` and call `build_temporal_splits(real_net)`.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <pre className="p-5 text-xs font-mono text-slate-800 overflow-x-auto leading-relaxed max-h-[680px]">
+              <code>{loading ? 'Loading project source files...' : activeContent}</code>
+            </pre>
+          )}
         </div>
       </div>
     </div>

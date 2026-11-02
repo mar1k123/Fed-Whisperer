@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="100%" height="100%">
+  <defs>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="16" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#e11d48" />
+    </marker>
+    <marker id="arrAmber" viewBox="0 0 10 10" refX="16" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706" />
+    </marker>
+    <marker id="arrViolet" viewBox="0 0 10 10" refX="16" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed" />
+    </marker>
+    <marker id="arrBlue" viewBox="0 0 10 10" refX="16" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="340" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+
+  <!-- Card 1: Money-Mule Chain -->
+  <g transform="translate(20, 20)">
+    <rect width="275" height="300" rx="10" fill="#f8fafc" stroke="#e2e8f0" />
+    <text x="16" y="28" fill="#be123c" font-family="ui-monospace, monospace" font-size="11" font-weight="700">01 · MONEY-MULE CHAIN</text>
+    <text x="16" y="48" fill="#0f172a" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">Multi-Hop Layering Relay</text>
+
+    <line x1="42" y1="135" x2="105" y2="110" stroke="#e11d48" stroke-width="2.5" marker-end="url(#arrRed)" />
+    <line x1="105" y1="110" x2="170" y2="145" stroke="#e11d48" stroke-width="2.5" marker-end="url(#arrRed)" />
+    <line x1="170" y1="145" x2="235" y2="115" stroke="#e11d48" stroke-width="2.5" marker-end="url(#arrRed)" />
+
+    <circle cx="42" cy="135" r="14" fill="#e11d48" />
+    <text x="42" y="139" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">A1</text>
+    <circle cx="105" cy="110" r="14" fill="#e11d48" />
+    <text x="105" y="114" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">A2</text>
+    <circle cx="170" cy="145" r="14" fill="#e11d48" />
+    <text x="170" y="149" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">A3</text>
+    <circle cx="235" cy="115" r="14" fill="#e11d48" />
+    <text x="235" y="119" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">A4</text>
+
+    <text x="16" y="205" fill="#334155" font-family="-apple-system, sans-serif" font-size="12">
+      • Rapid sequential relay (2–4% fee decay)
+    </text>
+    <text x="16" y="226" fill="#334155" font-family="-apple-system, sans-serif" font-size="12">
+      • High flow pass-through ratio (&gt;0.92)
+    </text>
+    <rect x="16" y="246" width="243" height="38" rx="6" fill="#fff1f2" stroke="#fecdd3" />
+    <text x="26" y="263" fill="#9f1239" font-family="ui-monospace, monospace" font-size="10" font-weight="700">
+      Distribution Shift Tactic:
+    </text>
+    <text x="26" y="277" fill="#be123c" font-family="ui-monospace, monospace" font-size="10">
+      Elongates to 6 hops + 95m hop delay
+    </text>
+  </g>
+
+  <!-- Card 2: Shared-Device Ring -->
+  <g transform="translate(315, 20)">
+    <rect width="275" height="300" rx="10" fill="#f8fafc" stroke="#e2e8f0" />
+    <text x="16" y="28" fill="#b45309" font-family="ui-monospace, monospace" font-size="11" font-weight="700">02 · SHARED-DEVICE RING</text>
+    <text x="16" y="48" fill="#0f172a" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">Collusive Hardware Star</text>
+
+    <line x1="138" y1="125" x2="68" y2="88" stroke="#d97706" stroke-width="2" stroke-dasharray="4,3" />
+    <line x1="138" y1="125" x2="208" y2="88" stroke="#d97706" stroke-width="2" stroke-dasharray="4,3" />
+    <line x1="138" y1="125" x2="68" y2="165" stroke="#d97706" stroke-width="2" stroke-dasharray="4,3" />
+    <line x1="138" y1="125" x2="208" y2="165" stroke="#d97706" stroke-width="2" stroke-dasharray="4,3" />
+
+    <circle cx="138" cy="125" r="18" fill="#d97706" />
+    <text x="138" y="129" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">DEV</text>
+
+    <circle cx="68" cy="88" r="12" fill="#0f172a" />
+    <circle cx="208" cy="88" r="12" fill="#0f172a" />
+    <circle cx="68" cy="165" r="12" fill="#0f172a" />
+    <circle cx="208" cy="165" r="12" fill="#0f172a" />
+
+    <text x="16" y="205" fill="#334155" font-family="-apple-system, sans-serif" font-size="12">
+      • 5+ accounts on 1 VPN device ID
+    </text>
+    <text x="16" y="226" fill="#334155" font-family="-apple-system, sans-serif" font-size="12">
+      • Funnels card txs to collusive merchant
+    </text>
+    <rect x="16" y="246" width="243" height="38" rx="6" fill="#fffbeb" stroke="#fde68a" />
+    <text x="26" y="263" fill="#92400e" font-family="ui-monospace, monospace" font-size="10" font-weight="700">
+      Distribution Shift Tactic:
+    </text>
+    <text x="26" y="277" fill="#b45309" font-family="ui-monospace, monospace" font-size="10">
+      50% members rotate proxy device IDs
+    </text>
+  </g>
+
+  <!-- Card 3: Burst Activity Drain -->
+  <g transform="translate(610, 20)">
+    <rect width="275" height="300" rx="10" fill="#f8fafc" stroke="#e2e8f0" />
+    <text x="16" y="28" fill="#6d28d9" font-family="ui-monospace, monospace" font-size="11" font-weight="700">03 · BURST ACTIVITY</text>
+    <text x="16" y="48" fill="#0f172a" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">High-Velocity Account Drain</text>
+
+    <line x1="75" y1="125" x2="195" y2="82" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arrViolet)" />
+    <line x1="75" y1="125" x2="205" y2="125" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arrViolet)" />
+    <line x1="75" y1="125" x2="195" y2="168" stroke="#7c3aed" stroke-width="2.4" marker-end="url(#arrViolet)" />
+
+    <circle cx="75" cy="125" r="17" fill="#7c3aed" />
+    <text x="75" y="129" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">SRC</text>
+
+    <circle cx="195" cy="82" r="12" fill="#475569" />
+    <circle cx="205" cy="125" r="12" fill="#475569" />
+    <circle cx="195" cy="168" r="12" fill="#475569" />
+
+    <text x="16" y="205" fill="#334155" font-family="-apple-system, sans-serif" font-size="12">
+      • 6–9 rapid transfers within &lt; 15 mins
+    </text>
+    <text x="16" y="226" fill="#334155" font-family="-apple-system, sans-serif" font-size="12">
+      • Caught by both Tabular &amp; GNN models
+    </text>
+    <rect x="16" y="246" width="243" height="38" rx="6" fill="#f5f3ff" stroke="#ddd6fe" />
+    <text x="26" y="263" fill="#5b21b6" font-family="ui-monospace, monospace" font-size="10" font-weight="700">
+      Distribution Shift Tactic:
+    </text>
+    <text x="26" y="277" fill="#6d28d9" font-family="ui-monospace, monospace" font-size="10">
+      Sub-$490 smurfing micro-transfers
+    </text>
+  </g>
+
+  <!-- Card 4: Circular Wash Transfer -->
+  <g transform="translate(905, 20)">
+    <rect width="275" height="300" rx="10" fill="#f8fafc" stroke="#e2e8f0" />
+    <text x="16" y="28" fill="#0369a1" font-family="ui-monospace, monospace" font-size="11" font-weight="700">04 · CIRCULAR TRANSFER</text>
+    <text x="16" y="48" fill="#0f172a" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">Directed Wash Cycle Loop</text>
+
+    <line x1="92" y1="88" x2="184" y2="88" stroke="#0284c7" stroke-width="2.4" marker-end="url(#arrBlue)" />
+    <line x1="184" y1="88" x2="184" y2="162" stroke="#0284c7" stroke-width="2.4" marker-end="url(#arrBlue)" />
+    <line x1="184" y1="162" x2="92" y2="162" stroke="#0284c7" stroke-width="2.4" marker-end="url(#arrBlue)" />
+    <line x1="92" y1="162" x2="92" y2="88" stroke="#0284c7" stroke-width="2.4" marker-end="url(#arrBlue)" />
+
+    <circle cx="92" cy="88" r="13" fill="#0284c7" />
+    <text x="92" y="92" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">C1</text>
+    <circle cx="184" cy="88" r="13" fill="#0284c7" />
+    <text x="184" y="92" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">C2</text>
+    <circle cx="184" cy="162" r="13" fill="#0284c7" />
+    <text x="184" y="166" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">C3</text>
+    <circle cx="92" cy="162" r="13" fill="#0284c7" />
+    <text x="92" y="166" text-anchor="middle" fill="#fff" font-family="ui-monospace, monospace" font-size="10" font-weight="700">C4</text>
+
+    <text x="16" y="205" fill="#334155" font-family="-apple-system, sans-serif" font-size="12">
+      • Round-trip ACH cycle C1→C2→C3→C4→C1
+    </text>
+    <text x="16" y="226" fill="#334155" font-family="-apple-system, sans-serif" font-size="12">
+      • Invisible to single-node tabular rules
+    </text>
+    <rect x="16" y="246" width="243" height="38" rx="6" fill="#f0f9ff" stroke="#bae6fd" />
+    <text x="26" y="263" fill="#0c4a6e" font-family="ui-monospace, monospace" font-size="10" font-weight="700">
+      Distribution Shift Tactic:
+    </text>
+    <text x="26" y="277" fill="#0369a1" font-family="ui-monospace, monospace" font-size="10">
+      Expands from 4-cycle to 5-node ring
+    </text>
+  </g>
+</svg>

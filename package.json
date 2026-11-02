@@ -1,7 +1,7 @@
 {
-  "name": "fed-whisperer",
+  "name": "fraud-ring-finder",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
@@ -14,7 +14,6 @@
     "test": "tsx --test src/engine/fraudEngine.test.ts"
   },
   "dependencies": {
-    "@google/genai": "^2.32.0",
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.1",
     "dotenv": "^17.2.3",

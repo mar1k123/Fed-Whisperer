@@ -1,11 +1,12 @@
 {
-  "name": "react-example",
+  "name": "fed-whisperer",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
     "start": "node --import tsx server.ts",
+    "desktop": "electron desktop/main.cjs",
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",

@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 
 const FILE_DESCRIPTIONS: Record<string, string> = {
-  'README.md': 'Methodology, econometric equations, repository structure, and honest small-sample limitations.',
+  'README.md': 'Full documentation, architecture diagram, desktop launch guide, empirical results, and limitations.',
   'configs/config.yaml': 'Scraper rate limits, FRED series IDs, equity tickers, embedding anchors, and LOPO regimes.',
   'requirements.txt': 'Python 3.10+ dependencies (pandas, beautifulsoup4, sentence-transformers, statsmodels, google-genai, fredapi, yfinance, streamlit).',
+  'desktop_app.py': 'Native PC desktop launcher (opens standalone OS window via PyWebView or native Chromium/Edge app mode).',
+  'desktop/main.cjs': 'Electron desktop application wrapper for running the interactive React + Express UI as a PC app.',
+  'app.py': 'Full 4-tab Streamlit interactive dashboard with Plotly charts, Diff Mode, and statsmodels OLS.',
   'src/fed_whisperer/__init__.py': 'Package version metadata.',
   'src/fed_whisperer/data/scraper.py': 'Robots.txt-compliant FOMC statement scraper with rate limiting and local disk caching.',
   'src/fed_whisperer/data/market.py': 'FRED Treasury yield (DGS2, DGS10) and yfinance S&P 500 loader + multi-window event calculator.',
@@ -15,7 +18,6 @@ const FILE_DESCRIPTIONS: Record<string, string> = {
   'src/fed_whisperer/analysis/diff.py': 'Diff Mode: SequenceMatcher sentence alignment and edited-sentence tone delta.',
   'src/fed_whisperer/analysis/event_study.py': 'Statsmodels OLS event study regression with HC1 robust standard errors and 95% CIs.',
   'src/fed_whisperer/analysis/robustness.py': 'Window sensitivity (1d/2d/5d), Leave-One-Period-Out (LOPO), and Monte Carlo placebo dates.',
-  'app.py': 'Streamlit interactive dashboard entry point.',
   'tests/test_fed_whisperer.py': 'Pytest unit test suite covering all scorers, diff engine, and econometric regressions.',
 };
 

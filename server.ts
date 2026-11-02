@@ -23,6 +23,9 @@ const PYTHON_PROJECT_FILES = [
   'README.md',
   'configs/config.yaml',
   'requirements.txt',
+  'desktop_app.py',
+  'desktop/main.cjs',
+  'app.py',
   'src/fed_whisperer/__init__.py',
   'src/fed_whisperer/data/scraper.py',
   'src/fed_whisperer/data/market.py',
@@ -33,7 +36,6 @@ const PYTHON_PROJECT_FILES = [
   'src/fed_whisperer/analysis/diff.py',
   'src/fed_whisperer/analysis/event_study.py',
   'src/fed_whisperer/analysis/robustness.py',
-  'app.py',
   'tests/test_fed_whisperer.py',
 ];
 

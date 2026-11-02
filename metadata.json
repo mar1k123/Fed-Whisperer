@@ -1,0 +1,6 @@
+{
+  "name": "Fed Whisperer",
+  "description": "Quantitative NLP research suite measuring hawkish/dovish FOMC statement tone across dictionary, embedding, and LLM rubric methods with Treasury yield and equity event studies.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

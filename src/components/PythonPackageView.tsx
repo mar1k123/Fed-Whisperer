@@ -1,24 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, Download } from 'lucide-react';
 
 const FILE_DESCRIPTIONS: Record<string, string> = {
-  'README.md': 'Full documentation, architecture diagram, desktop launch guide, empirical results, and limitations.',
-  'configs/config.yaml': 'Scraper rate limits, FRED series IDs, equity tickers, embedding anchors, and LOPO regimes.',
-  'requirements.txt': 'Python 3.10+ dependencies (pandas, beautifulsoup4, sentence-transformers, statsmodels, google-genai, fredapi, yfinance, streamlit).',
-  'desktop_app.py': 'Native PC desktop launcher (opens standalone OS window via PyWebView or native Chromium/Edge app mode).',
-  'desktop/main.cjs': 'Electron desktop application wrapper for running the interactive React + Express UI as a PC app.',
-  'app.py': 'Full 4-tab Streamlit interactive dashboard with Plotly charts, Diff Mode, and statsmodels OLS.',
-  'src/fed_whisperer/__init__.py': 'Package version metadata.',
-  'src/fed_whisperer/data/scraper.py': 'Robots.txt-compliant FOMC statement scraper with rate limiting and local disk caching.',
-  'src/fed_whisperer/data/market.py': 'FRED Treasury yield (DGS2, DGS10) and yfinance S&P 500 loader + multi-window event calculator.',
-  'src/fed_whisperer/scoring/dictionary.py': 'Method A: Domain monetary policy lexicon with 3-token negation window.',
-  'src/fed_whisperer/scoring/embeddings.py': 'Method B: Sentence-Transformers semantic projection onto Hawkish-Dovish anchor axis.',
-  'src/fed_whisperer/scoring/llm.py': 'Method C: Fixed-rubric Google Gemini API scorer (google-genai SDK, temperature=0.0).',
-  'src/fed_whisperer/scoring/agreement.py': 'Pairwise Pearson r, Spearman rho, 3-class Cohen’s kappa, and ΔTone sign concordance.',
-  'src/fed_whisperer/analysis/diff.py': 'Diff Mode: SequenceMatcher sentence alignment and edited-sentence tone delta.',
-  'src/fed_whisperer/analysis/event_study.py': 'Statsmodels OLS event study regression with HC1 robust standard errors and 95% CIs.',
-  'src/fed_whisperer/analysis/robustness.py': 'Window sensitivity (1d/2d/5d), Leave-One-Period-Out (LOPO), and Monte Carlo placebo dates.',
-  'tests/test_fed_whisperer.py': 'Pytest unit test suite covering all scorers, diff engine, and econometric regressions.',
+  'README.md':
+    'Full project documentation: why synthetic data is used, what that implies, how to plug in real data, and zero-invented-numbers reproduction guide.',
+  'configs/config.yaml':
+    'Configurable seed, accounts/devices/merchants counts, fraud rate (0.5%–2.0%), pattern weights, temporal splits, and XGBoost/GraphSAGE/GAT hyperparameters.',
+  'requirements.txt':
+    'Python 3.10+ dependencies (torch, torch-geometric, networkx, scikit-learn, xgboost, shap, streamlit, pyvis, pytest).',
+  'app.py':
+    'Interactive Streamlit + PyVis application highlighting flagged fraud rings and displaying per-account SHAP & GNNExplainer risk cards.',
+  'desktop_app.py':
+    'Native PC desktop window launcher (opens frameless OS window via PyWebView or Chromium/Edge --app mode).',
+  'desktop/main.cjs':
+    'Electron desktop application wrapper for launching the Fraud Ring Finder workstation.',
+  'src/fraud_ring_finder/__init__.py':
+    'Python package version & exports.',
+  'src/fraud_ring_finder/config.py':
+    'Typed dataclass loader for configs/config.yaml.',
+  'src/fraud_ring_finder/data/generator.py':
+    'Deterministic seeded transaction network generator planting money-mule chains, shared-device rings, burst activity, and circular transfers + distribution shift.',
+  'src/fraud_ring_finder/features/graph_features.py':
+    'Strictly leak-free temporal feature builder (tabular features + degree, PageRank, shared-device count, flow pass-through, and cycle motifs).',
+  'src/fraud_ring_finder/models/baselines.py':
+    'Tabular XGBoost and Graph-Feature-Enhanced XGBoost baselines with automatic class-imbalance scaling.',
+  'src/fraud_ring_finder/models/gnn.py':
+    'PyTorch Geometric GraphSAGE and Multi-Head GAT models trained with Focal Loss and Weighted BCE Loss.',
+  'src/fraud_ring_finder/evaluation/metrics.py':
+    'Temporal split zero-leakage verifier, PR-AUC, Recall @ Fixed Precision, and Fraud Pattern Ablation evaluator.',
+  'src/fraud_ring_finder/explainability/explainer.py':
+    'TreeSHAP local/global feature attributions for XGBoost and PyG GNNExplainer 2-hop computational subgraphs.',
+  'src/fraud_ring_finder/pipeline.py':
+    'CLI end-to-end training, evaluation, ablation, and distribution-shift benchmark runner.',
+  'tests/test_fraud_ring_finder.py':
+    'Pytest suite verifying bitwise generator determinism, fraud rate bounds, and zero future temporal leakage.',
 };
 
 export const PythonPackageView: React.FC = () => {
@@ -55,15 +70,29 @@ export const PythonPackageView: React.FC = () => {
     setTimeout(() => setCopied(false), 1800);
   };
 
+  const handleDownload = () => {
+    const content = files[selectedFile];
+    if (!content) return;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = selectedFile.replace(/\//g, '_');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="space-y-6">
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-slate-200 pb-5">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
           <p className="text-xs font-medium text-slate-500">
-            04. Python 3.10+ Package Source Tree & Econometric Documentation
+            04. Full Python 3.10+ Repository Source Tree &amp; Documentation
           </p>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 mt-1">
-            Repository Files (src/, configs/, tests/, app.py, README.md)
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 mt-0.5">
+            Project Files (src/fraud_ring_finder/, configs/, tests/, app.py, README.md)
           </h1>
         </div>
       </div>
@@ -72,7 +101,7 @@ export const PythonPackageView: React.FC = () => {
         {/* Left 4 cols: File Tree */}
         <div className="lg:col-span-4 bg-white border border-slate-200 rounded-xl p-4 space-y-1">
           <div className="text-xs font-semibold text-slate-500 px-2 py-1.5">
-            Project Files ({fileList.length})
+            Repository Files ({fileList.length})
           </div>
           {fileList.map((pathKey) => {
             const isSelected = pathKey === selectedFile;
@@ -103,14 +132,28 @@ export const PythonPackageView: React.FC = () => {
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors whitespace-nowrap shrink-0"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              {copied ? 'Copied' : 'Copy File'}
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors whitespace-nowrap shrink-0"
+              >
+                {copied ? (
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                ) : (
+                  <Copy className="w-3.5 h-3.5" />
+                )}
+                {copied ? 'Copied' : 'Copy File'}
+              </button>
+              <button
+                type="button"
+                onClick={handleDownload}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors whitespace-nowrap shrink-0"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Download
+              </button>
+            </div>
           </div>
 
           <pre className="p-5 text-xs font-mono text-slate-800 overflow-x-auto leading-relaxed max-h-[640px]">

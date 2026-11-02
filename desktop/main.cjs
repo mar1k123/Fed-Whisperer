@@ -1,6 +1,6 @@
 /**
- * Electron Native Desktop Wrapper for Fed Whisperer.
- * Launches the Express + React application inside a native desktop window on Windows, macOS, and Linux.
+ * Electron Native Desktop Wrapper for Fraud Ring Finder.
+ * Launches the Graph ML Forensic Workstation inside a native desktop window on Windows, macOS, and Linux.
  *
  * Run with:
  *   npm run desktop
@@ -53,12 +53,12 @@ async function createWindow() {
   await waitForServer(APP_URL);
 
   mainWindow = new BrowserWindow({
-    width: 1440,
+    width: 1480,
     height: 920,
-    minWidth: 1080,
-    minHeight: 720,
-    title: 'Fed Whisperer — FOMC NLP Tone & Market Event Study',
-    backgroundColor: '#f8fafc',
+    minWidth: 1120,
+    minHeight: 740,
+    title: 'Fraud Ring Finder — Graph ML Forensic Workstation',
+    backgroundColor: '#0f172a',
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: false,

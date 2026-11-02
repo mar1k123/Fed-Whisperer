@@ -1,59 +1,70 @@
-# Fed Whisperer Configuration
 project:
-  name: "fed-whisperer"
-  cache_dir: ".cache/fed_whisperer"
-  random_seed: 42
+  name: "fraud-ring-finder"
+  version: "1.0.0"
+  seed: 42
 
-scraper:
-  base_url: "https://www.federalreserve.gov"
-  calendar_url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
-  historical_url_template: "https://www.federalreserve.gov/monetarypolicy/fomchistorical{year}.htm"
-  robots_url: "https://www.federalreserve.gov/robots.txt"
-  user_agent: "FedWhispererResearchBot/1.0 (+https://github.com/quant-nlp/fed-whisperer)"
-  rate_limit_seconds: 1.5
-  timeout_seconds: 20
-  min_year: 2018
-  max_year: 2026
+generator:
+  num_accounts: 1200
+  num_devices: 920
+  num_merchants: 160
+  num_transactions: 16000
+  fraud_rate: 0.015  # Configurable between 0.005 (0.5%) and 0.020 (2.0%)
+  time_span_days: 30
+  pattern_weights:
+    money_mule_chain: 0.30
+    shared_device_ring: 0.25
+    burst_activity: 0.25
+    circular_transfer: 0.20
+  distribution_shift:
+    enabled: true
+    mule_chain_length_shifted: 6
+    mule_hop_delay_minutes_shifted: 95
+    device_ring_proxy_rotation_rate: 0.50
+    burst_smurfing_threshold_usd: 490.0
 
-market_data:
-  fred_series:
-    dgs2: "DGS2"       # 2-Year Treasury Constant Maturity Rate (%)
-    dgs10: "DGS10"     # 10-Year Treasury Constant Maturity Rate (%)
-    dff: "DFF"         # Effective Federal Funds Rate (%)
-    dfedtaru: "DFEDTARU" # Federal Funds Target Range - Upper Limit (%)
-  equity_tickers:
-    sp500: "^GSPC"
-    spy: "SPY"
-  windows_days: [1, 2, 5]
+split:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  strict_temporal_cutoff: true
 
-scoring:
-  embedding_model: "all-MiniLM-L6-v2"
-  llm_model: "gemini-2.5-flash"
-  llm_temperature: 0.0
-  hawkish_anchors:
-    - "Inflation remains elevated and upside risks to prices require further policy firming and rate increases."
-    - "Tight labor market conditions and strong price pressures warrant maintaining a restrictive monetary policy stance."
-    - "The Committee is prepared to tighten monetary policy further if inflationary pressures persist above target."
-    - "Ongoing increases in the target range for the federal funds rate will be appropriate to return inflation to 2 percent."
-  dovish_anchors:
-    - "Economic activity has slowed and downside risks to employment warrant lowering the target range and accommodative policy."
-    - "Inflation has eased substantially toward the 2 percent objective, allowing the Committee to reduce policy restraint."
-    - "Weakening labor demand and disinflationary pressures support a more accommodative stance of monetary policy."
-    - "The Committee will support maximum employment by cutting the target rate and maintaining ample liquidity."
+features:
+  pagerank_alpha: 0.85
+  velocity_windows_hours: [1, 6, 24]
+  include_device_sharing: true
+  include_two_hop_motifs: true
 
-robustness:
-  placebo_iterations: 500
-  confidence_level: 0.95
-  leave_one_out_regimes:
-    - name: "2021 Transitory Era"
-      start: "2021-01-01"
-      end: "2021-12-31"
-    - name: "2022 Aggressive Hiking"
-      start: "2022-01-01"
-      end: "2022-12-31"
-    - name: "2023 Peak Restrictive"
-      start: "2023-01-01"
-      end: "2023-12-31"
-    - name: "2024-2025 Calibration & Easing"
-      start: "2024-01-01"
-      end: "2025-12-31"
+models:
+  xgboost:
+    n_estimators: 220
+    max_depth: 5
+    learning_rate: 0.05
+    subsample: 0.85
+    colsample_bytree: 0.85
+    eval_metric: "aucpr"
+  graphsage:
+    hidden_channels: 64
+    num_layers: 2
+    dropout: 0.20
+    lr: 0.003
+    epochs: 80
+    loss_type: "focal"  # "focal" or "weighted_bce"
+    focal_alpha: 0.85
+    focal_gamma: 2.0
+  gat:
+    hidden_channels: 32
+    heads: 4
+    num_layers: 2
+    dropout: 0.20
+    lr: 0.0025
+    epochs: 80
+    loss_type: "focal"
+    focal_alpha: 0.85
+    focal_gamma: 2.0
+
+evaluation:
+  fixed_precision_targets: [0.70, 0.80, 0.90]
+  primary_precision_target: 0.80
+  explain_top_k_nodes: 15
+  gnn_explainer_hops: 2
+  gnn_explainer_epochs: 120

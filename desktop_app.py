@@ -1,9 +1,9 @@
 """
-Fed Whisperer — Native PC Desktop Application Launcher (Python).
+Fraud Ring Finder — Native PC Desktop Application Launcher (Python).
 
-Runs the full interactive Fed Whisperer suite as a standalone native desktop window
+Launches the full interactive Fraud Ring Finder desktop suite in a native OS window
 on Windows, macOS, or Linux using `pywebview` (if installed) or Chromium/Edge `--app`
-native frameless window mode, backed by the local server.
+frameless native window mode, backed by either the local Express/Vite server or Streamlit.
 
 Usage:
     python desktop_app.py
@@ -21,8 +21,7 @@ import webbrowser
 from pathlib import Path
 
 
-def find_free_port(preferred: int = 8501) -> int:
-    """Return preferred port if free, otherwise ask OS for an available port."""
+def find_free_port(preferred: int = 3000) -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         if s.connect_ex(("127.0.0.1", preferred)) != 0:
             return preferred
@@ -32,7 +31,6 @@ def find_free_port(preferred: int = 8501) -> int:
 
 
 def wait_for_server(port: int, timeout: float = 15.0) -> bool:
-    """Wait until the local server is accepting connections."""
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -42,22 +40,16 @@ def wait_for_server(port: int, timeout: float = 15.0) -> bool:
     return False
 
 
-def open_native_os_window(url: str, title: str = "Fed Whisperer") -> bool:
-    """
-    Attempt to open a native desktop window:
-    1. PyWebView native OS window (WinForms/WebView2 on Windows, Cocoa/WebKit on macOS, GTK on Linux)
-    2. Chrome / Edge / Brave native `--app=` frameless desktop window
-    3. Default system browser fallback
-    """
+def open_native_os_window(url: str, title: str = "Fraud Ring Finder — Graph ML Workbench") -> bool:
     try:
         import webview  # type: ignore[import-not-found]
 
         webview.create_window(
             title,
             url,
-            width=1440,
-            height=900,
-            min_size=(1024, 680),
+            width=1480,
+            height=920,
+            min_size=(1100, 720),
             text_select=True,
         )
         webview.start()
@@ -65,7 +57,6 @@ def open_native_os_window(url: str, title: str = "Fed Whisperer") -> bool:
     except ImportError:
         pass
 
-    # Look for Chromium-based browsers that support native desktop `--app` mode
     candidates = [
         "msedge",
         "chrome",
@@ -80,7 +71,7 @@ def open_native_os_window(url: str, title: str = "Fed Whisperer") -> bool:
     for bin_name in candidates:
         resolved = shutil.which(bin_name) or (bin_name if Path(bin_name).exists() else None)
         if resolved:
-            subprocess.Popen([resolved, f"--app={url}", "--window-size=1440,900"])
+            subprocess.Popen([resolved, f"--app={url}", "--window-size=1480,920"])
             return False
 
     webbrowser.open(url)
@@ -91,7 +82,6 @@ def main() -> None:
     root = Path(__file__).resolve().parent
     os.chdir(root)
 
-    # Prefer Node/Vite interactive UI if Node is installed, otherwise launch Streamlit app.py
     npm_bin = shutil.which("npm")
     if npm_bin and (root / "server.ts").exists() and (root / "node_modules").exists():
         port = find_free_port(3000)
@@ -116,9 +106,9 @@ def main() -> None:
         )
 
     url = f"http://127.0.0.1:{port}"
-    print(f"Starting Fed Whisperer Desktop on {url} ...")
+    print(f"Launching Fraud Ring Finder PC Workstation on {url} ...")
     if wait_for_server(port):
-        blocking_gui = open_native_os_window(url, title="Fed Whisperer — FOMC NLP & Event Study")
+        blocking_gui = open_native_os_window(url)
         if blocking_gui:
             proc.terminate()
             return
